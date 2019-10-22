@@ -16,6 +16,9 @@ import milkywei.services.*;
 
 public class MainMenu implements View {
 
+
+	public static String TargetUser = null;
+
 	public void printMenu() {
 		System.out.println("1. Login");
 		System.out.println("2. Register");
@@ -32,8 +35,10 @@ public class MainMenu implements View {
 		case 0:
 			return null;
 		case 1:
-			Login();
-			return new MainMenu(); // Login();return new AccountMenu();
+			if(Login()) 
+				
+				return new AccountMenu(); 
+			else return new MainMenu(); 
 		case 2:
 			Register();
 			return new MainMenu();
@@ -62,14 +67,17 @@ public class MainMenu implements View {
 
 	}
 
-	public void Login() {
+	public boolean Login() {
 		System.out.println("Enter username: ");
 		String Username = ScannerUtil.getStringInput();
 
 		System.out.println("Enter password: ");
 		String Password = ScannerUtil.getStringInput();
 		
-		UserServices.loginUser(Username, Password);
+		if(UserServices.loginUser(Username, Password)) {
+			TargetUser=Username;
+			return true;
+		}else return false;
 		
 
 	}

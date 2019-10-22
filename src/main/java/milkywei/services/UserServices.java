@@ -32,15 +32,32 @@ public class UserServices {
 		try (Connection connection = ConnectionUtil.getConnection()) {
 			
 			//check if username exist
-			String sql ="select count(Username) from users;";
+			String sql ="select count(Username) from users where Username = ?;";
 			PreparedStatement statement = connection.prepareStatement(sql);
-			//statement.setString(1, Username);
-			System.out.println("before");
+			statement.setString(1, Username);
 			ResultSet resultSet= statement.executeQuery();
-			System.out.println(resultSet);
-			int exist = 0;
-			if (exist == 1 )System.out.println("Username exist");
-			return true;
+			resultSet.next();
+			if(resultSet.getInt(1) ==1) {
+				//System.out.println("Username exist");
+				
+				//check if password is the same
+				sql ="select User_PW from USERS where Username = ?;";
+				statement = connection.prepareStatement(sql);
+				statement.setString(1, Username);
+				resultSet= statement.executeQuery();
+			
+				resultSet.next();
+				//check password equals
+				//System.out.println(resultSet.getString(1));
+				//System.out.println(Password);
+				if(resultSet.getString(1).equals(Password)) {
+					System.out.println("Logged In");
+					return true;
+				} else System.out.println("Incorrect Password");
+				return false;
+			}else System.out.println("Username or Password Incorrect");
+			System.out.println("---Returning Back To Main Menu---");
+			return false;
 
 			
 		} catch (SQLException e) {
