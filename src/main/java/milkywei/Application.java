@@ -6,11 +6,44 @@ import milkywei.views.View;
 public class Application {
 
 	public static void main(String[] args) {
-		System.out.println("Welcome to MilkyWei: A bank made up of stars!");
+		
+System.out.println(
+		"\r\n" + 
+		" _   .-')                   .-. .-')               (`\\ .-') /`  ('-.           \r\n" + 
+		"( '.( OO )_                 \\  ( OO )               `.( OO ),'_(  OO)          \r\n" + 
+		" ,--.   ,--.),-.-') ,--.    ,--. ,--.  ,--.   ,--,--./  .--. (,------. ,-.-')  \r\n" + 
+		" |   `.'   | |  |OO)|  |.-')|  .'   /   \\  `.'  /|      |  |  |  .---' |  |OO) \r\n" + 
+		" |         | |  |  \\|  | OO |      /, .-')     / |  |   |  |, |  |     |  |  \\ \r\n" + 
+		" |  |'.'|  | |  |(_/|  |`-' |     ' _(OO  \\   /  |  |.'.|  |_(|  '--.  |  |(_/ \r\n" + 
+		" |  |   |  |,|  |_.(|  '---.|  .   \\  |   /  /\\_ |         |  |  .--' ,|  |_.' \r\n" + 
+		" |  |   |  (_|  |   |      ||  |\\   \\ `-./  /.__)|   ,'.   |  |  `---(_|  |    \r\n" + 
+		" `--'   `--' `--'   `------'`--' '--'   `--'     '--'   '--'  `------' `--'    \r\n" + 
+		""
+		+
+		
+"\r\n" + 
+"\r\n" + 
+"$$\\      $$\\ $$$$$$\\  $$$$$$\\                                      \r\n" + 
+"$$$\\    $$$ $$  __$$\\$$  __$$\\                                     \r\n" + 
+"$$$$\\  $$$$ $$ /  $$ $$ /  $$ |$$$$$$\\ $$$$$$$\\  $$$$$$\\ $$\\   $$\\ \r\n" + 
+"$$\\$$\\$$ $$ $$ |  $$ $$ |  $$ $$  __$$\\$$  __$$\\$$  __$$\\$$ |  $$ |\r\n" + 
+"$$ \\$$$  $$ $$ |  $$ $$ |  $$ $$ /  $$ $$ |  $$ $$$$$$$$ $$ |  $$ |\r\n" + 
+"$$ |\\$  /$$ $$ |  $$ $$ |  $$ $$ |  $$ $$ |  $$ $$   ____$$ |  $$ |\r\n" + 
+"$$ | \\_/ $$ |$$$$$$  |$$$$$$  \\$$$$$$  $$ |  $$ \\$$$$$$$\\\\$$$$$$$ |\r\n" + 
+"\\__|     \\__|\\______/ \\______/ \\______/\\__|  \\__|\\_______|\\____$$ |\r\n" + 
+"                                                         $$\\   $$ |\r\n" + 
+"                                                         \\$$$$$$  |\r\n" + 
+"                                                          \\______/ \r\n" + 
+"");
+		
+		System.out.println("--------------------------------------------");
+		System.out.println("--Welcome to MilkyWei Banking Application!--");
+		System.out.println("---- Where currency is managed by Cows -----");
+		System.out.println("--------------------------------------------");
 		View currentView = new MainMenu();
 		while (currentView != null) {
 			currentView = currentView.process();
 		}
-		System.out.println("To infinity and beyond!");
+		System.out.println("Enjoy your day!");
 	}
 }

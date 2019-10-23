@@ -54,19 +54,20 @@ public class AccountServices {
 
 			return BankList;
 		}
-		System.out.println("-----------------------------------------------------");
-		System.out.println("---You currently don't have any bank accounts open---");
-		System.out.println("-----------------------------------------------------");
+		System.out.println("--------------------------------------------");
+		System.out.println("-- No Cows(banks) have been assigned to you--");
+		System.out.println("--------------------------------------------");
+		System.out.println("");
 		return null;
 	}
 
 	private static void printSelectableBankList(List<Bank> BankList) {
 
 		// display selectable banks that are the users
-		System.out.println("---------------------- Selectable Banks ---------------------------------");
-		System.out.println("|     Bank ID      |         Bank Name         |       Bank Balance    |");
+		System.out.println("------------------ Selectable Cows -----------------------------");
+		System.out.println("|  Cow ID # |         Cow Name          |  Cow's Current Milk Status  |");
 		for (Bank banks : BankList) {
-			System.out.printf("| %-16d | %-25s | " + banks.getBankBalance().setScale(2, BigDecimal.ROUND_DOWN) + " |%n",
+			System.out.printf("| %-9d | %-25s | " + banks.getBankBalance().setScale(2, BigDecimal.ROUND_DOWN) + " |%n",
 					banks.getBankID(), banks.getBankName());
 		}
 		System.out.println("-------------------------------------------------------------------------");

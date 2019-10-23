@@ -56,7 +56,9 @@ public class UserServices {
 				} else System.out.println("Incorrect Password");
 				return false;
 			}else System.out.println("Username or Password Incorrect");
-			System.out.println("---Returning Back To Main Menu---");
+			System.out.println("--------------------------------------------");
+			System.out.println("--------- Returning to Main Menu -----------");
+			System.out.println("--------------------------------------------");
 			return false;
 
 			

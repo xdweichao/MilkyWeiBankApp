@@ -47,26 +47,4 @@ public void Register() {
 			expectations, registered);
 	
 }
-
-
-
-@Before
-public void beforeEachTest() {
-	System.out.println("Before test");
-}
-
-@BeforeClass
-public static void beforeClass() {
-	System.out.println("Before the class");
-}
-
-@After
-public void afterEachTest() {
-	System.out.println("After each test");
-}
-
-@AfterClass
-public static void afterClass() {
-	System.out.println("After the class");
-}
 }

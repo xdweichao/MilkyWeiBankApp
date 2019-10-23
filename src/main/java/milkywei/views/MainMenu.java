@@ -2,7 +2,6 @@ package milkywei.views;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -48,26 +47,34 @@ public class MainMenu implements View {
 	}
 
 	private void Register() {
-		System.out.println("-----MilkyWei Registration-----");
+		
+		System.out.println("--------------------------------------------");
+		System.out.println("-----------MilkyWei Registration------------");
+		System.out.println("--------------------------------------------");
+		
 		System.out.println("Enter username: ");
 		String Username = ScannerUtil.getStringInput();
 		System.out.println("Enter password: ");
 		String Password = ScannerUtil.getStringInput();
 
 		if (UserServices.registerUser(Username, Password)) {
-			System.out.println("Congrats, " + Username + " has been created");
-		}else System.out.println("Sorry, either username exist or password is too short");
+			System.out.println("Account has been created, Welcome " + Username);
+		}else System.out.println("Sorry, either username exist or password length is shorter then 6");
 		};
 
 	private void viewAllUsers() {
 		// call dao method to get users
-		List<User> users = UserDao.getAllUsers();
+//		List<User> users = UserDao.getAllUsers();
 
-		printUserList(users);
+//		printUserList(users);
 
 	}
 
 	public boolean Login() {
+		System.out.println("--------------------------------------------");
+		System.out.println("--------------MilkyWei Login----------------");
+		System.out.println("--------------------------------------------");
+		
 		System.out.println("Enter username: ");
 		String Username = ScannerUtil.getStringInput();
 
@@ -82,13 +89,13 @@ public class MainMenu implements View {
 
 	}
 
-	private void printUserList(List<User> usersList) {
-		System.out.println("-------------------------- Users -------------------------");
-		System.out.println("|     Username     |         Password          |");
-		for (User users : usersList) {
-			System.out.printf("| %-16s | %-25s |%n", users.getUsername(), users.getUser_PW());
-		}
-		System.out.println("----------------------------------------------------------");
-	}
+//	private void printUserList(List<User> usersList) {
+//		System.out.println("-------------------------- Users -------------------------");
+//		System.out.println("|     Username     |         Password          |");
+//		for (User users : usersList) {
+//			System.out.printf("| %-16s | %-25s |%n", users.getUsername(), users.getUser_PW());
+//		}
+//		System.out.println("----------------------------------------------------------");
+//	}
 
 }

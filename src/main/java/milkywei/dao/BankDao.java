@@ -102,7 +102,7 @@ public class BankDao {
 			ResultSet money = statement.executeQuery();
 			money.next();
 			BigDecimal balance = money.getBigDecimal(1);
-			System.out.println( "Bank Account :" +  bankID + "      Balance $:" + balance);
+			System.out.println( "CowID #: " +  bankID + "        Gallons($): " + balance);
 			return balance;
 		} catch (SQLException e) {
 			 e.printStackTrace();

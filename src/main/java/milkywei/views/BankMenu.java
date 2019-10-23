@@ -11,7 +11,10 @@ import milkywei.util.ScannerUtil;
 public class BankMenu implements View {
 
 	private void printMenu() {
-		System.out.println("----- Bank Menu ------");
+		System.out.println("--------------------------------------------");
+		System.out
+				.println("------ Managing Cow Named: " + AccountMenu.CowName + " with CowID: " + AccountMenu.TargetBank + " -----");
+		System.out.println("--------------------------------------------");
 		System.out.println("1. Check Balance");
 		System.out.println("2. Deposit");
 		System.out.println("3. Withdraw");
@@ -43,18 +46,22 @@ public class BankMenu implements View {
 	}
 
 	private void transfer() {
-		System.out.println("Enter the Bank ID of the account you would like to transfer Money to");
+		System.out.println("--------------------------------------------");
+		System.out.println("---------- Milk Transfer System ------------");
+		System.out.println("--------------------------------------------");
+
+		System.out.println("Enter the Bank ID of the account you would like to transfer Milk to");
 		Scanner scanner = new Scanner(System.in);
 		int transferTo = scanner.nextInt();
 		if (BankDao.checkIfBankExist(transferTo)) {
 
-			System.out.println("Enter how much you would like to Transfer?: ");
+			System.out.println("Enter how much MLIK would like to TRANSFER?: ");
 			try {
 				Scanner scanner2 = new Scanner(System.in);
 				BigDecimal WithdrawAmount = new BigDecimal(scanner2.nextLine());
-				
-				//comparing 2 dec
-				//System.out.println(WithdrawAmount.compareTo(BankDao.checkBankBalance(AccountMenu.TargetBank)));
+
+				// comparing 2 dec
+				// System.out.println(WithdrawAmount.compareTo(BankDao.checkBankBalance(AccountMenu.TargetBank)));
 
 				if (WithdrawAmount.compareTo(BankDao.checkBankBalance(AccountMenu.TargetBank)) <= 0) {
 					BankServices.withdraw(AccountMenu.TargetBank, WithdrawAmount);
@@ -72,16 +79,22 @@ public class BankMenu implements View {
 	}
 
 	protected void withdraw() {
-		System.out.println("Enter how much you would like to withdraw: ");
+		System.out.println("--------------------------------------------");
+		System.out.println("--------- Milk Extraction System -----------");
+		System.out.println("--------------------------------------------");
+
+		System.out.println("Enter how much MILK would like to EXTRACT: ");
+
 		try {
 			Scanner scanner = new Scanner(System.in);
 			BigDecimal WithdrawAmount = new BigDecimal(scanner.nextLine());
-			System.out.println(WithdrawAmount.compareTo(BankDao.checkBankBalance(AccountMenu.TargetBank)));
-
-			if (WithdrawAmount.compareTo(BankDao.checkBankBalance(AccountMenu.TargetBank)) <= 0) {
-				BankServices.withdraw(AccountMenu.TargetBank, WithdrawAmount);
+			// System.out.println(WithdrawAmount.compareTo(BankDao.checkBankBalance(AccountMenu.TargetBank)));
+			if (WithdrawAmount.intValue() > 0) {
+				if (WithdrawAmount.compareTo(BankDao.checkBankBalance(AccountMenu.TargetBank)) <= 0) {
+					BankServices.withdraw(AccountMenu.TargetBank, WithdrawAmount);
+				}
 			} else
-				System.out.println("Invalid Input, Insufficant Funds");
+				System.out.println("Invalid Input or Insufficant Milk");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			// e.printStackTrace();
@@ -90,7 +103,11 @@ public class BankMenu implements View {
 	}
 
 	private void deposit() {
-		System.out.println("Enter how much you would like to deposit: ");
+		System.out.println("--------------------------------------------");
+		System.out.println("---------- Milk Injection System -----------");
+		System.out.println("--------------------------------------------");
+
+		System.out.println("Enter how much MILK would like to INJECT: ");
 		try {
 			Scanner scanner = new Scanner(System.in);
 
@@ -99,7 +116,7 @@ public class BankMenu implements View {
 
 				BankServices.deposit(AccountMenu.TargetBank, DepositAmount);
 			} else
-				System.out.println("Canceled or Invalid Input");
+				System.out.println("Invalid Input");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
