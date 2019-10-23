@@ -61,7 +61,7 @@ public class UserServices {
 
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		
 		}
 		return false;
