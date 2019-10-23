@@ -18,7 +18,6 @@ import milkywei.views.MainMenu;
 
 public class AccountServices {
 
-	
 	public static boolean createBank(String bankName, String bankType) {
 		try (Connection connection = ConnectionUtil.getConnection()) {
 
@@ -49,13 +48,15 @@ public class AccountServices {
 		// if array.contains is true,
 		// go to bank menu
 		if (BankDao.checkIfUserHasBankAccounts(MainMenu.TargetUser)) {
-		List<Bank> BankList = BankDao.getSelectedBanks();
+			List<Bank> BankList = BankDao.getSelectedBanks();
 
-		printSelectableBankList(BankList);
+			printSelectableBankList(BankList);
 
-		return BankList;
+			return BankList;
 		}
-		System.out.println("You currently don't have any bank accounts open");
+		System.out.println("-----------------------------------------------------");
+		System.out.println("---You currently don't have any bank accounts open---");
+		System.out.println("-----------------------------------------------------");
 		return null;
 	}
 
@@ -70,7 +71,36 @@ public class AccountServices {
 		}
 		System.out.println("-------------------------------------------------------------------------");
 
+	}
 
+	public static void deleteAccount(int targetBank) {
+		try (Connection connection = ConnectionUtil.getConnection()) {
+
+			String sql = "delete from accounts where fk_banks_bank_id = ?;" + "delete from  banks where bank_id = ?;";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, targetBank);
+			statement.setInt(2, targetBank);
+			statement.executeUpdate();
+
+		} catch (SQLException e) {
+			// e.printStackTrace();
+
+		}
+	}
+
+	public static void connectAccounts(String Username, int bankID) {
+		try (Connection connection = ConnectionUtil.getConnection()) {
+
+			String sql = "insert into accounts (FK_USERS_Username, fk_banks_bank_id) values (?, ?);";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, Username);
+			statement.setInt(2, bankID);
+			statement.executeUpdate();
+
+		} catch (SQLException e) {
+			// e.printStackTrace();
+
+		}
 	}
 
 }

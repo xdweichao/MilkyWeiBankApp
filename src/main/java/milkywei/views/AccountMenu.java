@@ -12,19 +12,19 @@ import milkywei.util.ScannerUtil;
 public class AccountMenu implements View {
 
 	public static int TargetBank = 0;
-	
+
 	private void printMenu() {
 		System.out.println("----- Account Menu ------");
 		System.out.println("1. Select Bank");
 		System.out.println("2. Create Bank");
-		System.out.println("4. Connect to Existing Bank");
-		System.out.println("5. Delete Bank");
+		System.out.println("3. Connect to Existing Bank");
+		System.out.println("4. Delete Bank");
 		System.out.println("0. Logout");
 	}
 
 	public View process() {
 		printMenu();
-		int selection = ScannerUtil.getInput(5);
+		int selection = ScannerUtil.getInput(4);
 		switch (selection) {
 		case 0:
 			System.out.println("Logging out...");
@@ -39,9 +39,10 @@ public class AccountMenu implements View {
 			return new AccountMenu();
 		case 3:
 			connectBank();
+			return new AccountMenu();
 		case 4:
-			if(selectBank())
-			{deleteBank();
+			if (deleteBank()) {
+				System.out.println("Bank as been deleted");
 			}
 			return new AccountMenu();
 		default:
@@ -49,8 +50,61 @@ public class AccountMenu implements View {
 		}
 	}
 
-	private void deleteBank() {
-		// TODO Auto-generated method stub
+	String Username = MainMenu.TargetUser;
+
+	private boolean deleteBank() {
+		List<Bank> AvaliableBanks = AccountServices.selectableBank();
+
+		if (AvaliableBanks == null) {
+			return false;
+		}
+
+		// have user select a bank to be deleted
+		System.out.println("Which Bank would you like to DELETE?");
+
+		int selector = 1;
+		for (int i = 0; i < AvaliableBanks.size(); i++) {
+			System.out.println("Press [" + selector++ + "] to Delete: " + AvaliableBanks.get(i).getBankName()
+					+ "(Bank ID: " + AvaliableBanks.get(i).getBankID() + ")");
+		}
+
+		selector--;
+
+		try {
+			Scanner scanner = new Scanner(System.in);
+			int input = -1;
+			System.out.println("Please insert the corresponding integer value:");
+			if (!scanner.hasNextInt()) {
+				scanner.nextLine();
+			}
+			input = scanner.nextInt();
+
+			TargetBank = AvaliableBanks.get(--input).getBankID();
+			input++;
+			System.out.println("Selected BankID: " + TargetBank + " Delete bank :"
+					+ AvaliableBanks.get(--input).getBankName() + "?");
+
+			System.out.println("Press [Y] to Confirm Delete");
+			System.out.println("Press [N] to Cancel");
+			Scanner confirm = new Scanner(System.in);
+			// confirm.nextLine();
+			String s = confirm.next();
+			if (s.equals("Y") || s.equals("y")) {
+				AccountServices.deleteAccount(TargetBank);
+				return true;
+			} else
+				System.out.println("Canceled or Invalid Input");
+			return false;
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("--------------------------------------------");
+			System.out.println("-----------Not A Valid Command--------------");
+			System.out.println("--------------------------------------------");
+			// e.printStackTrace();
+		}
+
+		return false;
 
 	}
 
@@ -80,18 +134,23 @@ public class AccountMenu implements View {
 	};
 
 	private void connectBank() {
-		// TODO Auto-generated method stub
+
+		System.out.println("To Connect to exist bank account, please provide it's Unique Bank ID: ");
+		Scanner bankID = new Scanner(System.in);
+		// confirm.nextLine();
+		int id = bankID.nextInt();
+
+		AccountServices.connectAccounts(Username, id);
 
 	}
 
 	private boolean selectBank() {
-		String Username = MainMenu.TargetUser;
 		List<Bank> AvaliableBanks = AccountServices.selectableBank();
 
-		if(AvaliableBanks ==null) {
+		if (AvaliableBanks == null) {
 			return false;
 		}
-		
+
 		// have user select a bank
 		System.out.println("Please Select A Bank:");
 
@@ -103,23 +162,32 @@ public class AccountMenu implements View {
 
 		selector--;
 
-		Scanner scanner = new Scanner(System.in);
-		int input = -1;
+		try {
+			Scanner scanner = new Scanner(System.in);
+			int input = -1;
 
-		while (input < 1 || input > selector) {
-			System.out.println("Please insert the corresponding integer value:");
-			if (!scanner.hasNextInt()) {
-				scanner.nextLine();
-				continue;
+			while (input < 1 || input > selector) {
+				System.out.println("Please insert the corresponding integer value:");
+				if (!scanner.hasNextInt()) {
+					scanner.nextLine();
+					continue;
+				}
+				input = scanner.nextInt();
+
+				TargetBank = AvaliableBanks.get(--input).getBankID();
+				System.out.println("You inserted [" + ++input + "], you've selected bank :"
+						+ AvaliableBanks.get(--input).getBankName());
+				return true;
 			}
-			input = scanner.nextInt();
-			
-		TargetBank = AvaliableBanks.get(--input).getBankID();
-		System.out.println("You inserted [" + ++input + "], you've selected bank :" + AvaliableBanks.get(--input).getBankName());
-		System.out.println();
-		return true;
-		}
 
+			return false;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("--------------------------------------------");
+			System.out.println("-----------Not A Valid Command--------------");
+			System.out.println("--------------------------------------------");
+			// e.printStackTrace();
+		}
 		return false;
 
 	}

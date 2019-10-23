@@ -16,7 +16,7 @@ public class Bank {
 	}
 	@Override
 	public String toString() {
-		return "Bank [BankID=" + BankID + ", BankName=" + BankName + ", BankType=" + BankType + ", BankBalance="
+		return "Bank [Bank_ID=" + BankID + ", BankName=" + BankName + ", BankType=" + BankType + ", BankBalance="
 				+ BankBalance + "]";
 	}
 	public int getBankID() {

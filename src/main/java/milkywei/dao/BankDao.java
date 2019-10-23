@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import milkywei.models.Account;
 import milkywei.models.Bank;
 import milkywei.util.ConnectionUtil;
 import milkywei.views.MainMenu;
@@ -89,6 +90,45 @@ public class BankDao {
 
 		}
 		return false;
+	}
+
+	public static BigDecimal checkBankBalance(int bankID) {
+		try (Connection connection = ConnectionUtil.getConnection()) {
+			String sql = "select banks.balance from banks where bank_id = ?;";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, bankID);
+			
+			
+			ResultSet money = statement.executeQuery();
+			money.next();
+			BigDecimal balance = money.getBigDecimal(1);
+			System.out.println( "Bank Account :" +  bankID + "      Balance $:" + balance);
+			return balance;
+		} catch (SQLException e) {
+			 e.printStackTrace();
+		}
+		return null;
+
+		// TODO Auto-generated method stub
+
+	}
+
+	public static boolean checkIfBankExist(int bankID) {
+		try (Connection connection = ConnectionUtil.getConnection()) {
+			String sql = "select count(*) from banks where bank_id = ?;";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, bankID);
+			ResultSet resultSet = statement.executeQuery();
+			resultSet.next();
+			if(resultSet.getInt(1) >= 1) {
+			return true;
+			}
+			return false;
+		} catch (SQLException e) {
+			 //e.printStackTrace();
+		}
+		return false;
+		
 	}
 
 }
